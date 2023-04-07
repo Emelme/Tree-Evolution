@@ -14,30 +14,49 @@ public class Gene
 	public int rightDownGene;
 	public int leftDownGene;
 
+	public bool hasCondition1;
 	public int parameter1;
-	public Operator operator1;
+	public Operators operator1;
 	public int parameter2;
-	public BooleanOperator booleanOperator;
+	public bool hasCondition2;
+	public BooleanOperators booleanOperator;
 	public int parameter3;
-	public Operator operator2;
+	public Operators operator2;
 	public int parameter4;
+	public int nextGeneIfTrue;
 
+	public enum Parameters
+	{
+		maxAge,
+		age,
+		mass,
+		cellAmount,
+		sproutAmount,
+		height,
+		width,
+		startEnergy,
+		energyOfTree,
+		energyOfSunGetsTree,
+		energyPerCell,
+		needEnergyWholeTree,
+		energyOfSunGetsCell,
+		heightOfSprout,
+		energyOfSprout,
+		energyOfSunGetsSprout,
+		number
+	}
 
-	public enum Operator
+	public enum Operators
 	{
 		equal,
 		notEqual,
 		lessThen,
 		notLessThen,
 		greaterThan,
-		notGreaterThan,
-		lessThanOrEqual,
-		notLessThanOrEqual,
-		greaterThanOrEqualOrEqual,
-		notGreaterThanOrEqualOrEqual
+		notGreaterThan
 	}
 
-	public enum BooleanOperator
+	public enum BooleanOperators
 	{
 		AND,
 		OR,

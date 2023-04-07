@@ -4,4 +4,6 @@ using UnityEngine;
 
 public class CellData : MonoBehaviour
 {
+	public int energyOfSunGetsCell;
+	public int needCellEnergyForLife;
 }
