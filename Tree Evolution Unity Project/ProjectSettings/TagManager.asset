@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - World
+  - Tree
+  - Sprout
+  - Cell
+  - Seed
   layers:
   - Default
   - TransparentFX
@@ -11,11 +16,11 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
+  - World
+  - Tree
+  - Sprout
+  - Cell
+  - Seed
   - 
   - 
   - 
