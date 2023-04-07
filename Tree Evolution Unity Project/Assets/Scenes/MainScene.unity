@@ -167,6 +167,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08374f963c7553e40b6a278658c31951, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  heightOfSprout: 0
+  energyOfSprout: 0
+  energyOfSunGetsSprout: 0
+  needSproutEnergyForLife: 0
+  energyForGrowth: 0
 --- !u!1 &273506464
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,6 +260,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e760e742c51e204dbfb2c684c07d755, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parameter1: 0
+  parameter2: 0
+  parameter3: 0
+  parameter4: 0
+  growthChance: 33
+  numberChanceParameter1: 75
+  numberChanceParameter2: 75
+  numberChanceParameter3: 75
+  numberChanceParameter4: 75
 --- !u!114 &314082896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -270,10 +284,15 @@ MonoBehaviour:
   maxAge: 0
   age: 0
   mass: 0
+  cellAmount: 0
+  sproutAmount: 0
   height: 0
   width: 0
-  energy: 0
-  needEnergy: 0
+  startEnergy: 0
+  energyOfTree: 0
+  energyOfSunGetsTree: 0
+  energyPerCell: 0
+  needEnergyWholeTree: 0
 --- !u!4 &314082897
 Transform:
   m_ObjectHideFlags: 0
@@ -654,6 +673,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e83ea81c1aa4e5f468905aafeece8710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  energyOfSeed: 0
 --- !u!4 &1459109808
 Transform:
   m_ObjectHideFlags: 0
