@@ -14,12 +14,15 @@ public class Genome : MonoBehaviour
 
 	private Dictionary<Gene.Parameters, int> parameterDictionary;
 
-	public Gene.Parameters parameter1;
-	public Gene.Parameters parameter2;
-	public Gene.Parameters parameter3;
-	public Gene.Parameters parameter4;
+	private Gene.Parameters parameter1;
+	private Gene.Parameters parameter2;
+	private Gene.Parameters parameter3;
+	private Gene.Parameters parameter4;
 
-	public int growthChance;
+	public int growthChanceUp;
+	public int growthChanceSide;
+	public int growthChanceDown;
+	[Space(20)]
 	public int numberChanceParameter1;
 	public int numberChanceParameter2;
 	public int numberChanceParameter3;
@@ -53,7 +56,7 @@ public class Genome : MonoBehaviour
 			genome[i] = new Gene();
 		}
 
-		RandomValueInGenes(growthChance, numberChanceParameter1, numberChanceParameter2, numberChanceParameter3, numberChanceParameter4);
+		RandomValueInGenes(growthChanceUp, growthChanceSide, growthChanceDown, numberChanceParameter1, numberChanceParameter2, numberChanceParameter3, numberChanceParameter4);
 	}
 
 	private void Update()
@@ -85,25 +88,31 @@ public class Genome : MonoBehaviour
 		}
 	}
 
-	public void RandomValueInGenes(int growthChance, int numberChanceParameter1, int numberChanceParameter2, int numberChanceParameter3, int numberChanceParameter4)
+	public void RandomValueInGenes(int growthChanceUp, int growthChanceSide, int growthChanceDown, int numberChanceParameter1, int numberChanceParameter2, int numberChanceParameter3, int numberChanceParameter4)
 	{
 		for (int i = 0; i < genome.Length; i++)
 		{
 			genome[i].number = i + 1;
 
-			if (Random.Range(1, 101) <= growthChance) genome[i].leftGene = Random.Range(1, 17);
-			if (Random.Range(1, 101) <= growthChance) genome[i].leftUpGene = Random.Range(1, 17);
-			if (Random.Range(1, 101) <= growthChance) genome[i].rightUpGene = Random.Range(1, 17);
-			if (Random.Range(1, 101) <= growthChance) genome[i].rightGene = Random.Range(1, 17);
-			if (Random.Range(1, 101) <= growthChance) genome[i].rightDownGene = Random.Range(1, 17);
-			if (Random.Range(1, 101) <= growthChance) genome[i].leftDownGene = Random.Range(1, 17);
+			if (Random.Range(1, 101) <= growthChanceSide) genome[i].leftGene = Random.Range(1, 17);
+			Debug.Log($"{genome[i].number}, {genome[i].leftGene}");
+			if (Random.Range(1, 101) <= growthChanceUp) genome[i].leftUpGene = Random.Range(1, 17);
+			Debug.Log($"{genome[i].number}, {genome[i].leftUpGene}");
+			if (Random.Range(1, 101) <= growthChanceUp) genome[i].rightUpGene = Random.Range(1, 17);
+			Debug.Log($"{genome[i].number}, {genome[i].rightUpGene}");
+			if (Random.Range(1, 101) <= growthChanceSide) genome[i].rightGene = Random.Range(1, 17);
+			Debug.Log($"{genome[i].number}, {genome[i].rightGene}");
+			if (Random.Range(1, 101) <= growthChanceDown) genome[i].rightDownGene = Random.Range(1, 17);
+			Debug.Log($"{genome[i].number}, {genome[i].rightDownGene}");
+			if (Random.Range(1, 101) <= growthChanceDown) genome[i].leftDownGene = Random.Range(1, 17);
+			Debug.Log($"{genome[i].number}, {genome[i].leftDownGene}");
 
 			genome[i].hasCondition1 = Random.Range(0, 2) == 0;
 			genome[i].hasCondition2 = Random.Range(0, 2) == 0;
 			
 			if (genome[i].hasCondition1)
 			{
-				if (Random.Range(0, 101) <= numberChanceParameter1)
+				if (Random.Range(1, 101) <= numberChanceParameter1)
 				{
 					genome[i].parameter1 = Random.Range(0, 64);
 					parameter1 = Gene.Parameters.number;
@@ -130,7 +139,7 @@ public class Genome : MonoBehaviour
 
 			if (genome[i].hasCondition1 && genome[i].hasCondition2)
 			{
-				if (Random.Range(0, 101) >= numberChanceParameter3)
+				if (Random.Range(1, 101) >= numberChanceParameter3)
 				{
 					genome[i].parameter3 = Random.Range(0, 64);
 					parameter3 = Gene.Parameters.number;
