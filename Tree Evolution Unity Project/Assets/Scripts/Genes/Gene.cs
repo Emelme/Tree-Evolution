@@ -1,12 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Globalization;
-using UnityEngine;
-
 public class Gene
 {
-	public int number;
-
 	public int leftGene;
 	public int leftUpGene;
 	public int rightUpGene;
@@ -23,6 +16,7 @@ public class Gene
 	public int parameter3;
 	public Operators operator2;
 	public int parameter4;
+	public IfTrueDo ifTrue;
 	public int nextGeneIfTrue;
 
 	public enum Parameters
@@ -58,8 +52,16 @@ public class Gene
 
 	public enum BooleanOperators
 	{
-		AND,
-		OR,
-		XOR
+		and,
+		or,
+		xor
+	}
+
+	public enum IfTrueDo
+	{
+		changeGeneTo,
+		fall,
+		maxAgePlus1,
+		eat
 	}
 }

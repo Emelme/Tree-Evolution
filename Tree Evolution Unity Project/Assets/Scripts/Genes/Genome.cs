@@ -1,13 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.Burst.CompilerServices;
-using Unity.VisualScripting;
-using Unity.VisualScripting.ReorderableList;
 using UnityEngine;
 
 public class Genome : MonoBehaviour
 {
-	public Gene[] genome = new Gene[16];
+	public Gene[] genes = new Gene[16];
 
 	private TreeData treeData;
 	private SproutData sproutData;
@@ -51,9 +47,9 @@ public class Genome : MonoBehaviour
 			{ Gene.Parameters.energyOfSunGetsSprout, sproutData.energyOfSunGetsSprout }
 		};
 
-		for (int i = 0; i < genome.Length; i++)
+		for (int i = 0; i < genes.Length; i++)
 		{
-			genome[i] = new Gene();
+			genes[i] = new Gene();
 		}
 
 		RandomValueInGenes(growthChanceUp, growthChanceSide, growthChanceDown, numberChanceParameter1, numberChanceParameter2, numberChanceParameter3, numberChanceParameter4);
@@ -61,127 +57,124 @@ public class Genome : MonoBehaviour
 
 	private void Update()
 	{
-		for (int i = 0; i < genome.Length; i++)
-		{
-			if (genome[i].hasCondition1)
-			{
-				if (parameter1 != Gene.Parameters.number)
-				{
-					parameterDictionary.TryGetValue(parameter1, out genome[i].parameter1);
-				}
-				if (parameter2 != Gene.Parameters.number)
-				{
-					parameterDictionary.TryGetValue(parameter2, out genome[i].parameter2);
-				}
-			}
-			else if (genome[i].hasCondition2)
-			{
-				if (parameter3 != Gene.Parameters.number)
-				{
-					parameterDictionary.TryGetValue(parameter3, out genome[i].parameter3);
-				}
-				if (parameter4 != Gene.Parameters.number)
-				{
-					parameterDictionary.TryGetValue(parameter4, out genome[i].parameter4);
-				}
-			}
-		}
+		//for (int i = 0; i < genes.Length; i++)
+		//{
+		//	if (genes[i].hasCondition1)
+		//	{
+		//		if (parameter1 != Gene.Parameters.number)
+		//		{
+		//			parameterDictionary.TryGetValue(parameter1, out genes[i].parameter1);
+		//		}
+		//		if (parameter2 != Gene.Parameters.number)
+		//		{
+		//			parameterDictionary.TryGetValue(parameter2, out genes[i].parameter2);
+		//		}
+		//	}
+		//	else if (genes[i].hasCondition2)
+		//	{
+		//		if (parameter3 != Gene.Parameters.number)
+		//		{
+		//			parameterDictionary.TryGetValue(parameter3, out genes[i].parameter3);
+		//		}
+		//		if (parameter4 != Gene.Parameters.number)
+		//		{
+		//			parameterDictionary.TryGetValue(parameter4, out genes[i].parameter4);
+		//		}
+		//	}
+		//}
 	}
 
 	public void RandomValueInGenes(int growthChanceUp, int growthChanceSide, int growthChanceDown, int numberChanceParameter1, int numberChanceParameter2, int numberChanceParameter3, int numberChanceParameter4)
 	{
-		for (int i = 0; i < genome.Length; i++)
+		for (int i = 0; i < genes.Length; i++)
 		{
-			genome[i].number = i + 1;
+			if (Random.Range(1, 101) <= growthChanceSide) genes[i].leftGene = Random.Range(0, 16);
+			if (Random.Range(1, 101) <= growthChanceUp) genes[i].leftUpGene = Random.Range(0, 16);
+			if (Random.Range(1, 101) <= growthChanceUp) genes[i].rightUpGene = Random.Range(0, 16);
+			if (Random.Range(1, 101) <= growthChanceSide) genes[i].rightGene = Random.Range(0, 16);
+			if (Random.Range(1, 101) <= growthChanceDown) genes[i].rightDownGene = Random.Range(0, 16);
+			if (Random.Range(1, 101) <= growthChanceDown) genes[i].leftDownGene = Random.Range(0, 16);
 
-			if (Random.Range(1, 101) <= growthChanceSide) genome[i].leftGene = Random.Range(1, 17);
-			Debug.Log($"{genome[i].number}, {genome[i].leftGene}");
-			if (Random.Range(1, 101) <= growthChanceUp) genome[i].leftUpGene = Random.Range(1, 17);
-			Debug.Log($"{genome[i].number}, {genome[i].leftUpGene}");
-			if (Random.Range(1, 101) <= growthChanceUp) genome[i].rightUpGene = Random.Range(1, 17);
-			Debug.Log($"{genome[i].number}, {genome[i].rightUpGene}");
-			if (Random.Range(1, 101) <= growthChanceSide) genome[i].rightGene = Random.Range(1, 17);
-			Debug.Log($"{genome[i].number}, {genome[i].rightGene}");
-			if (Random.Range(1, 101) <= growthChanceDown) genome[i].rightDownGene = Random.Range(1, 17);
-			Debug.Log($"{genome[i].number}, {genome[i].rightDownGene}");
-			if (Random.Range(1, 101) <= growthChanceDown) genome[i].leftDownGene = Random.Range(1, 17);
-			Debug.Log($"{genome[i].number}, {genome[i].leftDownGene}");
-
-			genome[i].hasCondition1 = Random.Range(0, 2) == 0;
-			genome[i].hasCondition2 = Random.Range(0, 2) == 0;
+			genes[i].hasCondition1 = Random.Range(0, 2) == 0;
+			genes[i].hasCondition2 = Random.Range(0, 2) == 0;
 			
-			if (genome[i].hasCondition1)
+			if (genes[i].hasCondition1)
 			{
 				if (Random.Range(1, 101) <= numberChanceParameter1)
 				{
-					genome[i].parameter1 = Random.Range(0, 64);
+					genes[i].parameter1 = Random.Range(0, 64);
 					parameter1 = Gene.Parameters.number;
 					parameter2 = (Gene.Parameters)Random.Range(0, 16);
-					parameterDictionary.TryGetValue(parameter2, out genome[i].parameter2);
+					parameterDictionary.TryGetValue(parameter2, out genes[i].parameter2);
 				}
 				else
 				{
 					parameter1 = (Gene.Parameters)Random.Range(0, 16);
-					parameterDictionary.TryGetValue(parameter1, out genome[i].parameter1);
+					parameterDictionary.TryGetValue(parameter1, out genes[i].parameter1);
 
 					if (Random.Range(1, 101) <= numberChanceParameter2)
 					{
-						genome[i].parameter2 = Random.Range(0, 64);
+						genes[i].parameter2 = Random.Range(0, 64);
 						parameter2 = Gene.Parameters.number;
 					}
 					else
 					{
 						parameter2 = (Gene.Parameters)Random.Range(0, 16);
-						parameterDictionary.TryGetValue(parameter2, out genome[i].parameter2);
+						parameterDictionary.TryGetValue(parameter2, out genes[i].parameter2);
 					}
 				}
 			}
 
-			if (genome[i].hasCondition1 && genome[i].hasCondition2)
+			if (genes[i].hasCondition1 && genes[i].hasCondition2)
 			{
 				if (Random.Range(1, 101) >= numberChanceParameter3)
 				{
-					genome[i].parameter3 = Random.Range(0, 64);
+					genes[i].parameter3 = Random.Range(0, 64);
 					parameter3 = Gene.Parameters.number;
 					parameter4 = (Gene.Parameters)Random.Range(0, 16);
-					parameterDictionary.TryGetValue(parameter4, out genome[i].parameter4);
+					parameterDictionary.TryGetValue(parameter4, out genes[i].parameter4);
 				}
 				else
 				{
 					parameter3 = (Gene.Parameters)Random.Range(0, 16);
-					parameterDictionary.TryGetValue(parameter3, out genome[i].parameter3);
+					parameterDictionary.TryGetValue(parameter3, out genes[i].parameter3);
 
 					if (Random.Range(1, 101) <= numberChanceParameter4)
 					{
-						genome[i].parameter4 = Random.Range(0, 64);
+						genes[i].parameter4 = Random.Range(0, 64);
 						parameter4 = Gene.Parameters.number;
 					}
 					else
 					{
 						parameter4 = (Gene.Parameters)Random.Range(0, 16);
-						parameterDictionary.TryGetValue(parameter4, out genome[i].parameter4);
+						parameterDictionary.TryGetValue(parameter4, out genes[i].parameter4);
 					}
 				}
 			}
 
-			if (genome[i].hasCondition1)
+			if (genes[i].hasCondition1)
 			{
-				genome[i].operator1 = (Gene.Operators)Random.Range(0, 6);
+				genes[i].operator1 = (Gene.Operators)Random.Range(0, 6);
 
-				if (genome[i].hasCondition2)
+				if (genes[i].hasCondition2)
 				{
-					genome[i].operator2 = (Gene.Operators)Random.Range(0, 6);
+					genes[i].operator2 = (Gene.Operators)Random.Range(0, 6);
 				}
 			}
 
-			if (genome[i].hasCondition1 && genome[i].hasCondition2)
+			if (genes[i].hasCondition1 && genes[i].hasCondition2)
 			{
-				genome[i].booleanOperator = (Gene.BooleanOperators)Random.Range(0, 3);
+				genes[i].booleanOperator = (Gene.BooleanOperators)Random.Range(0, 3);
 			}
 
-			if (genome[i].hasCondition1)
+			if (genes[i].hasCondition1)
 			{
-				genome[i].nextGeneIfTrue = Random.Range(1, 17);
+				genes[i].ifTrue = (Gene.IfTrueDo)Random.Range(0, 4);
+
+				if (genes[i].ifTrue == Gene.IfTrueDo.changeGeneTo)
+				{
+					genes[i].nextGeneIfTrue = Random.Range(0, 16);
+				}
 			}
 		}
 	}

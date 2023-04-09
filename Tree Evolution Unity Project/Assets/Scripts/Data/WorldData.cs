@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WorldData : MonoBehaviour
 {
-	public int sunPower;
+	public int sunPowerAtBottom;
+	public int solid;
 	public int sunForce;
 }
