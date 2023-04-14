@@ -29,24 +29,6 @@ public class Genome : MonoBehaviour
 		treeData = GetComponentInParent<TreeData>();
 		sproutData = GetComponentInChildren<SproutData>();
 
-		parameterDictionary = new Dictionary<Gene.Parameters, int>
-		{
-			{ Gene.Parameters.maxAge, treeData.maxAge },
-			{ Gene.Parameters.age, treeData.age },
-			{ Gene.Parameters.mass, treeData.mass },
-			{ Gene.Parameters.cellAmount, treeData.cellAmount },
-			{ Gene.Parameters.sproutAmount, treeData.sproutAmount },
-			{ Gene.Parameters.height, treeData.height },
-			{ Gene.Parameters.width, treeData.width },
-			{ Gene.Parameters.startEnergy, treeData.startEnergy },
-			{ Gene.Parameters.energyPerCell, treeData.energyPerCell },
-			{ Gene.Parameters.needEnergyWholeTree, treeData.needEnergyWholeTree },
-			{ Gene.Parameters.energyOfSunGetsTree, treeData.energyOfSunGetsTree },
-			{ Gene.Parameters.heightOfSprout, sproutData.heightOfSprout },
-			{ Gene.Parameters.energyOfSprout, sproutData.energyOfSprout },
-			{ Gene.Parameters.energyOfSunGetsSprout, sproutData.energyOfSunGetsSprout }
-		};
-
 		for (int i = 0; i < genes.Length; i++)
 		{
 			genes[i] = new Gene();
@@ -88,21 +70,21 @@ public class Genome : MonoBehaviour
 	{
 		for (int i = 0; i < genes.Length; i++)
 		{
-			if (Random.Range(1, 101) <= growthChanceSide) genes[i].leftGene = Random.Range(0, 16);
-			if (Random.Range(1, 101) <= growthChanceUp) genes[i].leftUpGene = Random.Range(0, 16);
-			if (Random.Range(1, 101) <= growthChanceUp) genes[i].rightUpGene = Random.Range(0, 16);
-			if (Random.Range(1, 101) <= growthChanceSide) genes[i].rightGene = Random.Range(0, 16);
-			if (Random.Range(1, 101) <= growthChanceDown) genes[i].rightDownGene = Random.Range(0, 16);
-			if (Random.Range(1, 101) <= growthChanceDown) genes[i].leftDownGene = Random.Range(0, 16);
+			if (Random.Range(1, 101) <= growthChanceSide) genes[i].LeftGene = Random.Range(0, 16);
+			if (Random.Range(1, 101) <= growthChanceUp) genes[i].LeftUpGene = Random.Range(0, 16);
+			if (Random.Range(1, 101) <= growthChanceUp) genes[i].RightUpGene = Random.Range(0, 16);
+			if (Random.Range(1, 101) <= growthChanceSide) genes[i].RightGene = Random.Range(0, 16);
+			if (Random.Range(1, 101) <= growthChanceDown) genes[i].RightDownGene = Random.Range(0, 16);
+			if (Random.Range(1, 101) <= growthChanceDown) genes[i].LeftDownGene = Random.Range(0, 16);
 
-			genes[i].hasCondition1 = Random.Range(0, 2) == 0;
-			genes[i].hasCondition2 = Random.Range(0, 2) == 0;
+			genes[i].HasCondition1 = Random.Range(0, 2) == 0;
+			genes[i].HasCondition2 = Random.Range(0, 2) == 0;
 			
-			if (genes[i].hasCondition1)
+			if (genes[i].HasCondition1)
 			{
 				if (Random.Range(1, 101) <= numberChanceParameter1)
 				{
-					genes[i].parameter1 = Random.Range(0, 64);
+					genes[i].Parameter1 = Random.Range(0, 64);
 					parameter1 = Gene.Parameters.number;
 					parameter2 = (Gene.Parameters)Random.Range(0, 16);
 					parameterDictionary.TryGetValue(parameter2, out genes[i].parameter2);
@@ -114,7 +96,7 @@ public class Genome : MonoBehaviour
 
 					if (Random.Range(1, 101) <= numberChanceParameter2)
 					{
-						genes[i].parameter2 = Random.Range(0, 64);
+						genes[i].Parameter2 = Random.Range(0, 64);
 						parameter2 = Gene.Parameters.number;
 					}
 					else
@@ -125,11 +107,11 @@ public class Genome : MonoBehaviour
 				}
 			}
 
-			if (genes[i].hasCondition1 && genes[i].hasCondition2)
+			if (genes[i].HasCondition1 && genes[i].HasCondition2)
 			{
 				if (Random.Range(1, 101) >= numberChanceParameter3)
 				{
-					genes[i].parameter3 = Random.Range(0, 64);
+					genes[i].Parameter3 = Random.Range(0, 64);
 					parameter3 = Gene.Parameters.number;
 					parameter4 = (Gene.Parameters)Random.Range(0, 16);
 					parameterDictionary.TryGetValue(parameter4, out genes[i].parameter4);
@@ -141,7 +123,7 @@ public class Genome : MonoBehaviour
 
 					if (Random.Range(1, 101) <= numberChanceParameter4)
 					{
-						genes[i].parameter4 = Random.Range(0, 64);
+						genes[i].Parameter4 = Random.Range(0, 64);
 						parameter4 = Gene.Parameters.number;
 					}
 					else
@@ -152,28 +134,28 @@ public class Genome : MonoBehaviour
 				}
 			}
 
-			if (genes[i].hasCondition1)
+			if (genes[i].HasCondition1)
 			{
-				genes[i].operator1 = (Gene.Operators)Random.Range(0, 6);
+				genes[i].Operator1 = (Gene.Operators)Random.Range(0, 6);
 
-				if (genes[i].hasCondition2)
+				if (genes[i].HasCondition2)
 				{
-					genes[i].operator2 = (Gene.Operators)Random.Range(0, 6);
+					genes[i].Operator2 = (Gene.Operators)Random.Range(0, 6);
 				}
 			}
 
-			if (genes[i].hasCondition1 && genes[i].hasCondition2)
+			if (genes[i].HasCondition1 && genes[i].HasCondition2)
 			{
-				genes[i].booleanOperator = (Gene.BooleanOperators)Random.Range(0, 3);
+				genes[i].BooleanOperator = (Gene.BooleanOperators)Random.Range(0, 3);
 			}
 
-			if (genes[i].hasCondition1)
+			if (genes[i].HasCondition1)
 			{
-				genes[i].ifTrue = (Gene.IfTrueDo)Random.Range(0, 4);
+				genes[i].IfTrue = (Gene.IfTrueDo)Random.Range(0, 4);
 
-				if (genes[i].ifTrue == Gene.IfTrueDo.changeGeneTo)
+				if (genes[i].IfTrue == Gene.IfTrueDo.changeGeneTo)
 				{
-					genes[i].nextGeneIfTrue = Random.Range(0, 16);
+					genes[i].NextGeneIfTrue = Random.Range(0, 16);
 				}
 			}
 		}

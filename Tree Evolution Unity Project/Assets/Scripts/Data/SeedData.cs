@@ -2,5 +2,5 @@ using UnityEngine;
 
 public class SeedData : MonoBehaviour
 {
-	public int energyOfSeed;
+	public int EnergyOfSeed { get; set; }
 }
