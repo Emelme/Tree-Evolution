@@ -244,76 +244,17 @@ public class Gene
 	#endregion
 
 	#region Mutation Methods
-	public void MutateOneNextGrowthGene()
+	public void Mutate()
 	{
-		int randomGrowthGene = Random.Range(0, 6);
-
-		switch (randomGrowthGene)
-		{
-			case 0:
-				LeftGene = Random.Range(1, 17);
-				break;
-			case 1:
-				LeftUpGene = Random.Range(1, 17);
-				break;
-			case 2:
-				RightUpGene = Random.Range(1, 17);
-				break;
-			case 3:
-				RightGene = Random.Range(1, 17);
-				break;
-			case 4:
-				RightDownGene = Random.Range(1, 17);
-				break;
-			case 5:
-				LeftDownGene = Random.Range(1, 17);
-				break;
-		}
-	}
-
-	public void MutateNextGrowthGenes()
-	{
-		if (LeftGene != 0) LeftGene = Random.Range(1, 17);
-		else if (Random.value < 0.5f) LeftGene = Random.Range(1, 17);
-		if (LeftUpGene != 0) LeftUpGene = Random.Range(1, 17);
-		else if (Random.value < 0.5f) LeftUpGene = Random.Range(1, 17);
-		if (RightUpGene != 0) RightUpGene = Random.Range(1, 17);
-		else if (Random.value < 0.5f) RightUpGene = Random.Range(1, 17);
-		if (RightGene != 0) RightGene = Random.Range(1, 17);
-		else if (Random.value < 0.5f) RightGene = Random.Range(1, 17);
-		if (RightDownGene != 0) RightDownGene = Random.Range(1, 17);
-		else if (Random.value < 0.5f) RightDownGene = Random.Range(1, 17);
-		if (LeftDownGene != 0) LeftDownGene = Random.Range(1, 17);
-		else if (Random.value < 0.5f) LeftDownGene = Random.Range(1, 17);
-	}
-
-	public void MutateCondition1()
-	{
-		if (HasCondition1)
-		{
-			Operator1 = (Operators)Random.Range(0, 6);
-
-			if (Random.value < 0.5f)
-			{
-				Parameter1 = Parameters.number;
-				RandomNumber1 = Random.Range(0, 101);
-				Parameter2 = (Parameters)Random.Range(1, 17);
-			}
-			else
-			{
-				Parameter1 = (Parameters)Random.Range(1, 17);
-
-				if (Random.value < 0.5f)
-				{
-					Parameter2 = Parameters.number;
-					RandomNumber1 = Random.Range(0, 101);
-				}
-				else
-				{
-					Parameter2 = (Parameters)Random.Range(1, 17);
-				}
-			}
-		}
+		if (Random.Range(0, 100) > 5) LeftGene = Random.Range(0, 17);
+		if (Random.Range(0, 100) > 5) LeftUpGene = Random.Range(0, 17);
+		if (Random.Range(0, 100) > 5) RightUpGene = Random.Range(0, 17);
+		if (Random.Range(0, 100) > 5) RightGene = Random.Range(0, 17);
+		if (Random.Range(0, 100) > 5) RightDownGene = Random.Range(0, 17);
+		if (Random.Range(0, 100) > 5) LeftDownGene = Random.Range(0, 17);
+		if (Random.Range(0, 100) > 5) HasCondition1 = (Random.value > 0.5f);
+		if (Random.Range(0, 100) < 5 && HasCondition1) Parameter1 = (Parameters)Random.Range(0, 17);
+		if (Random.Range(0, 100) < 5 && HasCondition1) Parameter2 = (Parameters)Random.Range(0, 17);
 	}
 	#endregion
 	#endregion

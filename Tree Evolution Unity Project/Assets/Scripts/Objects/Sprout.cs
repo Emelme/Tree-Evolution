@@ -1,13 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Sprout : MonoBehaviour
 {
-	public Genome genome;
-
-	private void Start()
-	{
-		genome = GetComponentInParent<Genome>();
-	}
+	public Tile sproutTile;
+	public Vector3 position;
+	public Tilemap tilemap;
 }
