@@ -1,28 +1,10 @@
 using UnityEngine;
-using static Gene;
 
 public class Gene
 {
 	#region Data
 	#region Properties
-	public int Number
-	{
-		get
-		{
-			return Number;
-		}
-		set
-		{
-			if (value < 1 || value > 16)
-			{
-				Number = 1;
-			}
-			else
-			{
-				Number = value;
-			}
-		}
-	}
+	public int Number { get; set; }
 
 	public int LeftGene { get; set; }
 	public int LeftUpGene { get; set; }
@@ -96,19 +78,53 @@ public class Gene
 	#endregion
 
 	#region Methods
+	#region Generate Methods
 	public void GenerateFullyRandomValues()
 	{
-		LeftGene = Random.Range(1, 17);
-		LeftUpGene = Random.Range(1, 17);
-		RightUpGene = Random.Range(1, 17);
-		RightGene = Random.Range(1, 17);
-		RightDownGene = Random.Range(1, 17);
-		LeftDownGene = Random.Range(1, 17);
-
+		GenerateFullyRandomNextGrowthGenes();
 		HasCondition1 = (Random.value < 0.5f);
+		GenerateFullyRandomCondition1();
+		HasCondition2 = (Random.value < 0.5f);
+		GenerateFullyRandomCondition2();
+		GenerateRandomIfTrueAction();
+	}
 
+	public void GenerateAlmostRandomValues(float growthChanceUp, float growthChanceSide, float growthChanceDown, float HasCondition1Chance, float numberChanceParameter1, float numberChanceParameter2, float HasCondition2Chance, float numberChanceParameter3, float numberChanceParameter4)
+	{
+		GenerateAlmostRandomNextGrowthGenes(growthChanceUp, growthChanceSide, growthChanceDown);
+		HasCondition1 = (Random.value < HasCondition1Chance);
+		GenerateAlmostRandomCondition1(numberChanceParameter1, numberChanceParameter2);
+		HasCondition1 = (Random.value < HasCondition2Chance);
+		GenerateAlmostRandomCondition2(numberChanceParameter3, numberChanceParameter4);
+		GenerateRandomIfTrueAction();
+	}
+
+	public void GenerateFullyRandomNextGrowthGenes()
+	{
+		if (Random.value < 0.5f) LeftGene = Random.Range(1, 17);
+		if (Random.value < 0.5f) LeftUpGene = Random.Range(1, 17);
+		if (Random.value < 0.5f) RightUpGene = Random.Range(1, 17);
+		if (Random.value < 0.5f) RightGene = Random.Range(1, 17);
+		if (Random.value < 0.5f) RightDownGene = Random.Range(1, 17);
+		if (Random.value < 0.5f) LeftDownGene = Random.Range(1, 17);
+	}
+
+	public void GenerateAlmostRandomNextGrowthGenes(float growthChanceUp, float growthChanceSide, float growthChanceDown)
+	{
+		if (Random.value < growthChanceSide) LeftGene = Random.Range(1, 17);
+		if (Random.value < growthChanceUp) LeftUpGene = Random.Range(1, 17);
+		if (Random.value < growthChanceUp) RightUpGene = Random.Range(1, 17);
+		if (Random.value < growthChanceSide) RightGene = Random.Range(1, 17);
+		if (Random.value < growthChanceDown) RightDownGene = Random.Range(1, 17);
+		if (Random.value < growthChanceDown) LeftDownGene = Random.Range(1, 17);
+	}
+
+	public void GenerateFullyRandomCondition1()
+	{
 		if (HasCondition1)
 		{
+			Operator1 = (Operators)Random.Range(0, 6);
+
 			if (Random.value < 0.5f)
 			{
 				Parameter1 = Parameters.number;
@@ -126,43 +142,179 @@ public class Gene
 				}
 				else
 				{
-
+					Parameter2 = (Parameters)Random.Range(1, 17);
 				}
 			}
+		}
+	}
 
-			if (Random.value < 0.5f)
+	public void GenerateAlmostRandomCondition1(float numberChanceParameter1, float numberChanceParameter2)
+	{
+		if (HasCondition1)
+		{
+			Operator1 = (Operators)Random.Range(0, 6);
+
+			if (Random.value < numberChanceParameter1)
 			{
 				Parameter1 = Parameters.number;
+				RandomNumber1 = Random.Range(0, 101);
+				Parameter2 = (Parameters)Random.Range(1, 17);
 			}
 			else
 			{
 				Parameter1 = (Parameters)Random.Range(1, 17);
 
-				if ()
+				if (Random.value < numberChanceParameter2)
 				{
-					Parameter2 = Random.Range(0, 64);
-					parameter2 = Parameters.number;
+					Parameter2 = Parameters.number;
+					RandomNumber1 = Random.Range(0, 101);
 				}
 				else
 				{
-					parameter2 = (Parameters)Random.Range(0, 16);
+					Parameter2 = (Parameters)Random.Range(1, 17);
 				}
 			}
 		}
-		Parameter2 = (Parameters)Random.Range(0, 17);
-
-		HasCondition2 = (HasCondition1 = true && Random.value < 0.5f);
 	}
 
-	public void GenerateFullyRandomNextGrowthGene()
+	public void GenerateFullyRandomCondition2()
 	{
-		LeftGene = Random.Range(1, 17);
-		LeftUpGene = Random.Range(1, 17);
-		RightUpGene = Random.Range(1, 17);
-		RightGene = Random.Range(1, 17);
-		RightDownGene = Random.Range(1, 17);
-		LeftDownGene = Random.Range(1, 17);
+		if (HasCondition2)
+		{
+			BooleanOperator = (BooleanOperators)Random.Range(0, 3);
+			Operator2 = (Operators)Random.Range(0, 6);
+
+			if (Random.value < 0.5f)
+			{
+				Parameter3 = Parameters.number;
+				RandomNumber2 = Random.Range(0, 101);
+				Parameter4 = (Parameters)Random.Range(1, 17);
+			}
+			else
+			{
+				Parameter3 = (Parameters)Random.Range(1, 17);
+
+				if (Random.value < 0.5f)
+				{
+					Parameter4 = Parameters.number;
+					RandomNumber2 = Random.Range(0, 101);
+				}
+				else
+				{
+					Parameter4 = (Parameters)Random.Range(1, 17);
+				}
+			}
+		}
 	}
 
-	public v
+	public void GenerateAlmostRandomCondition2(float numberChanceParameter3, float numberChanceParameter4)
+	{
+		if (HasCondition1)
+		{
+			Operator1 = (Operators)Random.Range(0, 6);
+
+			if (Random.value < numberChanceParameter3)
+			{
+				Parameter1 = Parameters.number;
+				RandomNumber1 = Random.Range(0, 101);
+				Parameter2 = (Parameters)Random.Range(1, 17);
+			}
+			else
+			{
+				Parameter1 = (Parameters)Random.Range(1, 17);
+
+				if (Random.value < numberChanceParameter4)
+				{
+					Parameter2 = Parameters.number;
+					RandomNumber1 = Random.Range(0, 101);
+				}
+				else
+				{
+					Parameter2 = (Parameters)Random.Range(1, 17);
+				}
+			}
+		}
+	}
+
+	public void GenerateRandomIfTrueAction()
+	{
+		IfTrue = (Actions)Random.Range(0, 4);
+		NextGeneIfTrue = Random.Range(1, 17);
+	}
 	#endregion
+
+	#region Mutation Methods
+	public void MutateOneNextGrowthGene()
+	{
+		int randomGrowthGene = Random.Range(0, 6);
+
+		switch (randomGrowthGene)
+		{
+			case 0:
+				LeftGene = Random.Range(1, 17);
+				break;
+			case 1:
+				LeftUpGene = Random.Range(1, 17);
+				break;
+			case 2:
+				RightUpGene = Random.Range(1, 17);
+				break;
+			case 3:
+				RightGene = Random.Range(1, 17);
+				break;
+			case 4:
+				RightDownGene = Random.Range(1, 17);
+				break;
+			case 5:
+				LeftDownGene = Random.Range(1, 17);
+				break;
+		}
+	}
+
+	public void MutateNextGrowthGenes()
+	{
+		if (LeftGene != 0) LeftGene = Random.Range(1, 17);
+		else if (Random.value < 0.5f) LeftGene = Random.Range(1, 17);
+		if (LeftUpGene != 0) LeftUpGene = Random.Range(1, 17);
+		else if (Random.value < 0.5f) LeftUpGene = Random.Range(1, 17);
+		if (RightUpGene != 0) RightUpGene = Random.Range(1, 17);
+		else if (Random.value < 0.5f) RightUpGene = Random.Range(1, 17);
+		if (RightGene != 0) RightGene = Random.Range(1, 17);
+		else if (Random.value < 0.5f) RightGene = Random.Range(1, 17);
+		if (RightDownGene != 0) RightDownGene = Random.Range(1, 17);
+		else if (Random.value < 0.5f) RightDownGene = Random.Range(1, 17);
+		if (LeftDownGene != 0) LeftDownGene = Random.Range(1, 17);
+		else if (Random.value < 0.5f) LeftDownGene = Random.Range(1, 17);
+	}
+
+	public void MutateCondition1()
+	{
+		if (HasCondition1)
+		{
+			Operator1 = (Operators)Random.Range(0, 6);
+
+			if (Random.value < 0.5f)
+			{
+				Parameter1 = Parameters.number;
+				RandomNumber1 = Random.Range(0, 101);
+				Parameter2 = (Parameters)Random.Range(1, 17);
+			}
+			else
+			{
+				Parameter1 = (Parameters)Random.Range(1, 17);
+
+				if (Random.value < 0.5f)
+				{
+					Parameter2 = Parameters.number;
+					RandomNumber1 = Random.Range(0, 101);
+				}
+				else
+				{
+					Parameter2 = (Parameters)Random.Range(1, 17);
+				}
+			}
+		}
+	}
+	#endregion
+	#endregion
+}
