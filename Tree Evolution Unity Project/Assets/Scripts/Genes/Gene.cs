@@ -92,11 +92,11 @@ public class Gene
 	public void GenerateAlmostRandomValues(float growthChanceUp, float growthChanceSide, float growthChanceDown, float HasCondition1Chance, float numberChanceParameter1, float numberChanceParameter2, float HasCondition2Chance, float numberChanceParameter3, float numberChanceParameter4)
 	{
 		GenerateAlmostRandomNextGrowthGenes(growthChanceUp, growthChanceSide, growthChanceDown);
-		HasCondition1 = (Random.value < HasCondition1Chance);
-		GenerateAlmostRandomCondition1(numberChanceParameter1, numberChanceParameter2);
-		HasCondition1 = (Random.value < HasCondition2Chance);
-		GenerateAlmostRandomCondition2(numberChanceParameter3, numberChanceParameter4);
-		GenerateRandomIfTrueAction();
+		//HasCondition1 = (Random.value < HasCondition1Chance);
+		//GenerateAlmostRandomCondition1(numberChanceParameter1, numberChanceParameter2);
+		//HasCondition1 = (Random.value < HasCondition2Chance);
+		//GenerateAlmostRandomCondition2(numberChanceParameter3, numberChanceParameter4);
+		//GenerateRandomIfTrueAction();
 	}
 
 	public void GenerateFullyRandomNextGrowthGenes()
