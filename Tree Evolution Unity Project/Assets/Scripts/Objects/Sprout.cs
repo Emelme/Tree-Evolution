@@ -8,16 +8,18 @@ using UnityEngine.UIElements;
 
 public class Sprout : MonoBehaviour
 {
+	private NewUpdate nu;
+
 	private Genome genome;
 	private SproutData sd;
 
 	public GameObject sproutGameObject;
 	public GameObject cellGameObject;
 
-	private float timer;
-
 	private void Start()
 	{
+		nu = FindObjectOfType<NewUpdate>();
+
 		genome = GetComponentInParent<Genome>();
 		sd = GetComponent<SproutData>();
 	}
@@ -29,15 +31,7 @@ public class Sprout : MonoBehaviour
 
 	private void Update()
 	{
-		//timer += Time.deltaTime;
-
-		//if (timer > 1f)
-		//{
-		//	NewUpdate();
-		//	timer = 0f;
-		//}
-
-		if (Input.GetMouseButtonDown(0))
+		if (nu.canDo)
 		{
 			NewUpdate();
 		}
